@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Optional
+from typing import Optional, Dict
 
 RESERVED_PORT = 8022  # sshd
 STARTING_PORT = 8001
@@ -18,7 +18,7 @@ class Service:
     self.decimation = decimation
 
 
-services: dict[str, tuple] = {
+services: Dict[str, tuple] = {
   # service: (should_log, frequency, qlog decimation (optional))
   # note: the "EncodeIdx" packets will still be in the log
   "gyroscope": (True, 104., 104),
