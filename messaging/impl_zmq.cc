@@ -8,8 +8,15 @@
 #include "cereal/services.h"
 #include "cereal/messaging/impl_zmq.h"
 
+//FIXME: This is a hack to get the port number from the socket name, might have collisions
 static int get_port(std::string endpoint) {
-  return services.at(endpoint).port;
+    std::hash<std::string> hasher;
+    size_t hash_value = hasher(endpoint);
+    int start_port = 8023;
+    int max_port = 65535;
+    int port = start_port + (hash_value % (max_port - start_port));
+    std::cout << endpoint << " - " << port << std::endl;
+    return port;
 }
 
 ZMQContext::ZMQContext() {
